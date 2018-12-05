@@ -28,19 +28,11 @@ endif
 " Active plugins
 " You can disable or add new ones here:
 
-" this needs to be here, so vim-plug knows we are declaring the plugins we want to use
+" so vim-plug knows we are declaring the plugins we want to use
 call plug#begin('~/.config/nvim/plugged')
-
-
-" Better file browser
-Plug 'scrooloose/nerdtree'
 
 " Better language packs
 Plug 'sheerun/vim-polyglot'
-
-" Paint css colors with the real color
-Plug 'lilydjwg/colorizer'
-" TODO is there a better option for neovim?
 
 " Automatically sort python imports
 Plug 'fisadev/vim-isort'
@@ -54,17 +46,34 @@ Plug 'Shougo/context_filetype.vim'
 " Python autocompletion
 Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 
-" Just to add the python go-to-definition and similar features, autocompletion
-" from this plugin is disabled
+Plug 'tpope/vim-repeat'
+
+" Just to add the python go-to-definition and similar features, 
 " Plug 'davidhalter/jedi-vim'
 
 Plug 'tomtom/tcomment_vim'
-    " LIGHTLINE
 
 Plug 'tpope/vim-surround'
 
 Plug 'sheerun/vim-polyglot'
 
+Plug 'tpope/vim-vinegar'
+
+Plug 'kien/ctrlp.vim'
+
+" Snippets =======
+
+Plug 'SirVer/ultisnips'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" LIGHTLINE =======
 Plug 'itchyny/lightline.vim'
 
 let g:lightline = {
@@ -81,35 +90,30 @@ let g:lightline = {
 :set laststatus=2
 set noshowmode
 
-Plug 'scrooloose/nerdtree'
+" NETRW =======
+" Changing the directory view in netrw
+let g:netrw_liststyle = 3
 
-" open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" No banner
+let g:netrw_banner = 0
 
-" open NERDTree automatically when vim starts up on opening a directory?
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" How to Open new file
+let g:netrw_browse_split = 3
 
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" when browsing, <cr> will open the file by (0) re-using the same window
+let g:netrw_browse_split = 3
 
-" change default arrows
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+" direction spliting
+let g:netrw_altv = 1
 
-"automatically close NerdTree when you open a file
-let NERDTreeQuitOnOpen = 1
+" Win Size
+let g:netrw_winsize = 25
 
-" Automatically delete the buffer of the file you just deleted with NerdTree:
-let NERDTreeAutoDeleteBuffer = 1
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
 
-" Make it prettier
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-" don;t show these file types
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -133,7 +137,6 @@ endif
 "set cursorline  "highlight current line
 set mouse=a "Activer la souris
 
-
 "COLORS
 syntax on "coloration syntaxique
 set colorcolumn=120 "color the line if to long
@@ -141,9 +144,12 @@ set showmatch "highlight matching [{()}]
 set showcmd "show command
 " colorscheme solarized
 
+if has("gui_vimr")
+    colorscheme solarized8
+endif
+
 " remove ugly vertical lines on window division
 set fillchars+=vert:\ 
-
 
 "NUMBERING
 "set number   "show line numbers
@@ -170,6 +176,7 @@ set wildmenu            " visual autocomplete for command menu
 
 " Remove whitespaces on save
 autocmd BufWritePre * :%s/\s\+$//e
+
 " Autosave when switching buffers
 set autowrite
 
@@ -181,9 +188,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 set lazyredraw          " redraw only when we need to.
 
-" clear empty spaces at the end of lines on save of python files
-autocmd BufWritePre *.py :%s/\s\+$//e
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 "                   MAPPING
@@ -191,25 +195,44 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 
 let mapleader = ','
 
-" use jj to quickly escape to normal mode while typing <- AWESOME tip
+" use jj to quickly escape to normal mode while typing
 inoremap jj <ESC>
+
+"" Don't use arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Automatically add closing ( { [ ' " `
+inoremap {<cr> {<cr>}<ESC>kA<CR>
+inoremap { {}<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
 
 " insert newline without entering insert mode
 map <CR> o<Esc>k
 
 " reloads .vimrc -- making all changes active
-map <silent> <Leader>v :source ~/.vimrc<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map <silent> <leader>v :source ~/.vimrc<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " Leader C prefix is for code related mappings (completion, tidy, documentation...)
-noremap <silent> <Leader>cc :TComment<CR>              "tcomment_vim
+" ,cc
+noremap <silent> <leader>cc :TComment<CR>              "tcomment_vim
 
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 " edit vimrc/zshrc and load vimrc bindings
+" ,ev ,ez ,sv
 nnoremap <leader>ev :vsp ~/.vimrc<CR>
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
-
+" ,wq ,w
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>w :w<CR>
 
@@ -222,8 +245,12 @@ imap <M-Right> <ESC>:tabn<CR>
 map <M-Left> :tabp<CR>
 imap <M-Left> <ESC>:tabp<CR>
 
-" NERDTree -----------------------------
+noremap <S-l> gt
+noremap <S-h> gT
 
+
+" NERDTree -----------------------------
+" ,t
 " toggle nerdtree display
 " map <F3> :NERDTreeToggle<CR>
 " open nerdtree with the current file selected
