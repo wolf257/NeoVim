@@ -1,7 +1,7 @@
 "Au cas où l'on vt utiliser le fic de config vim 
 "set runtimepath^=~/.vim runtimepath+=~/.vim/after
 "let &packpath = &runtimepath
-"source ~/.config/nvim/init.vim
+"source ~/.vimrc
 
 " ============================================================================
 " Vim-plug initialization
@@ -34,6 +34,9 @@ call plug#begin('~/.config/nvim/plugged')
 " Better language packs
 Plug 'sheerun/vim-polyglot'
 
+" Automatically sort python imports
+Plug 'fisadev/vim-isort'
+
 " Automatically close parenthesis, etc
 Plug 'Townk/vim-autoclose'
 
@@ -41,6 +44,9 @@ Plug 'Townk/vim-autoclose'
 Plug 'Shougo/context_filetype.vim'
 
 Plug 'tpope/vim-repeat'
+
+" Just to add the python go-to-definition and similar features, 
+" Plug 'davidhalter/jedi-vim'
 
 Plug 'tomtom/tcomment_vim'
 
@@ -51,6 +57,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-vinegar'
 
 Plug 'kien/ctrlp.vim'
+
+
 
 " LIGHTLINE =======
 Plug 'itchyny/lightline.vim'
@@ -92,6 +100,21 @@ let g:netrw_winsize = 25
 "  autocmd!
 "  autocmd VimEnter * :Vexplore
 "augroup END
+
+" AUTOCOMPLETION =======
+
+" Async autocompletion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Completion from other opened files
+"Plug 'Shougo/context_filetype.vim'
+
+" Python autocompletion
+Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+
+" Just to add the python go-to-definition and similar features, autocompletion
+" from this plugin is disabled
+Plug 'davidhalter/jedi-vim'
 
 
 " Tell vim-plug we finished declaring plugins, so it can load them
@@ -175,6 +198,39 @@ set lazyredraw          " redraw only when we need to.
 set splitbelow
 set splitright
 
+
+" AUTOCOMPLETION
+
+" needed so deoplete can auto select the first suggestion
+" set completeopt+=noinsert
+
+" comment this line to enable autocompletion preview window
+set completeopt-=preview
+
+
+" to be able to call CtrlP with default search text
+"function! CtrlPWithSearchText(search_text, ctrlp_command_end)
+    "execute ':CtrlP' . a:ctrlp_command_end
+    "call feedkeys(a:search_text)
+"endfunction
+
+" Deoplete -----------------------------
+
+" Use deoplete.
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+
+" complete with words from any opened file
+let g:context_filetype#same_filetypes = {}
+let g:context_filetype#same_filetypes._ = '_'
+
+" Disable autocompletion (using deoplete instead)
+let g:jedi#completions_enabled = 0
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""
 "                   MAPPING
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -246,3 +302,19 @@ nmap ,F :Lines<CR>
 
 " tags (symbols) in all files finder mapping
 " nmap ,G :Tag<CR>
+
+
+" Jedi-vim ------------------------------
+
+" All these mappings work only for python code:
+
+" Go to definition (def)
+let g:jedi#goto_command = '<leader>d'
+
+" Find ocurrences
+let g:jedi#usages_command = '<leader>o'
+
+" Find assignments (var = ...)
+let g:jedi#goto_assignments_command = '<leader>a'
+
+let g:jedi#documentation_command = "K"
