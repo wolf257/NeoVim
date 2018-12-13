@@ -2,8 +2,8 @@
 "filetype off                  " required
 
 "GENERAL
-"set cursorline  "highlight current line
 set mouse=a "Activer la souris
+" set cursorline  "highlight current line
 
 "COLORS
 syntax on "coloration syntaxique
@@ -22,11 +22,11 @@ endif
 "set number   "show line numbers
 set number relativenumber
 
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 "SPACE AND TABS
 "Conserve l'indentation courante sur les nouvelles lignes

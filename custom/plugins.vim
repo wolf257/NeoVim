@@ -30,7 +30,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 
 " Automatically close parenthesis, etc
-Plug 'Townk/vim-autoclose'
+" Plug 'Townk/vim-autoclose'
 
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
@@ -98,21 +98,6 @@ let g:netrw_list_hide= '.*\.swp$, .*\.pyc'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Files (similar to :FZF)
-" nmap <leader>e :Files<CR>
-nmap <leader>f :FZF<CR>
-
-" open buffers
-nmap <leader>b :Buffers<CR>
-
-" commands finder mapping (all commands)
-nmap <leader>c :Commands<CR>
-
-" general code finder in current file mapping (find line. nice)
-nmap <leader>l :BLines<CR>
-
-" Lines in loaded buffers
-nmap <leader>L :Lines<CR>
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
