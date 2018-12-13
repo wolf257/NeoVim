@@ -1,9 +1,9 @@
 noremap ; :
 
-" use jj to quickly escape to normal mode while typing
+" use jk to quickly escape to normal mode while typing
 inoremap jk <ESC>
 
-"" Don't use arrow keys
+" Don't use arrow keys
 noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
