@@ -7,16 +7,7 @@ let mapleader = '\'
 
 " Plugins
 source ~/.config/nvim/custom/plugins.vim
-
-""""""""""""""""""""""""""""""""""""""""""""""""
-"                   SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""
-
-"set nocompatible              " required
-"filetype off                  " required
-
 " General
 source ~/.config/nvim/custom/general.vim
-
 " MAPPING
-source ~/.config/nvim/custom/map.vim
+source ~/.config/nvim/custom/mapping.vim

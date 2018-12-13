@@ -1,3 +1,6 @@
+"set nocompatible              " required
+"filetype off                  " required
+
 "GENERAL
 "set cursorline  "highlight current line
 set mouse=a "Activer la souris
