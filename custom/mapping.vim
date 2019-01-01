@@ -1,5 +1,7 @@
 noremap ; :
 
+noremap , @@ "for the last macro
+
 " use jk to quickly escape to normal mode while typing
 inoremap jk <ESC>
 
