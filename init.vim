@@ -59,21 +59,17 @@ Plug 'tpope/vim-vinegar'
 " Plug 'kien/ctrlp.vim'
 
 " NETRW =======
+
 " Changing the directory view in netrw
 let g:netrw_liststyle = 3
-
 " No banner
 let g:netrw_banner = 0
-
 " How to Open new file
 let g:netrw_browse_split = 3
-
 " when browsing, <cr> will open the file by (0) re-using the same window
 let g:netrw_browse_split = 3
-
 " direction spliting
 let g:netrw_altv = 1
-
 " Win Size
 let g:netrw_winsize = 25
 
@@ -364,7 +360,6 @@ nnoremap <leader>c :Commands<CR>
 nnoremap <leader>l :BLines<CR>
 " Lines in loaded buffers
 nnoremap <leader>L :Lines<CR>
-
 " File System Explorer (in horizontal split)
 nnoremap <leader>. :Sexplore<cr>
 
