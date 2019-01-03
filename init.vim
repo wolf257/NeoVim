@@ -58,23 +58,6 @@ Plug 'tpope/vim-vinegar'
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim (needed for fzf).
 " Plug 'kien/ctrlp.vim'
 
-" LIGHTLINE =======
-Plug 'itchyny/lightline.vim'
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified', 'charvaluehex' ] ]
-      \ },
-      \ 'component': {
-      \   'charvaluehex': '0x%B'
-      \ },
-      \ }
-
-set laststatus=2
-set noshowmode
-
 " NETRW =======
 " Changing the directory view in netrw
 let g:netrw_liststyle = 3
@@ -129,18 +112,35 @@ endif
 " ============================================================================
 " General {{{
 
-"set nocompatible              " required
+set nocompatible              " required
 "filetype off                  " required
+
+set noshowmode
 
 "GENERAL
 set mouse=a "Activer la souris
 " set cursorline  "highlight current line
+
+" UTF encoding
+set encoding=utf-8
+
+" Autoload files that have changed outside of vim
+set autoread
+
+" Use system clipboard
+" http://stackoverflow.com/questions/8134647/copy-and-paste-in-vim-via-keyboard-between-different-mac-terminals
+set clipboard+=unnamed
+
+" Don't show intro
+set shortmess+=I
 
 "COLORS
 syntax on "coloration syntaxique
 set colorcolumn=120 "color the line if to long
 set showmatch "highlight matching [{()}]
 set showcmd "show command
+
+autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
 
 if has("gui_vimr")
     colorscheme solarized8
@@ -194,9 +194,95 @@ set lazyredraw          " redraw only when we need to.
 set splitbelow
 set splitright
 
+" Always highlight column 80 so it's easier to see where
+" cutoff appears on longer screens
+autocmd BufWinEnter * highlight ColorColumn ctermbg=lightgreen
+set colorcolumn=100
+" }}}
+
+
+" STATUS LINE
+set laststatus=2
+
+" Dictionary: take mode() input -> longer notation of current mode
+" mode() is defined by Vim
+let g:currentmode={
+      \ 'n'  : 'Normal',
+      \ 'no' : 'N·Operator Pending',
+      \ 'v'  : 'Visual',
+      \ 'V'  : 'Visual-Line',
+      \ 'x22' : 'Visual-Block',
+      \ 'i'  : 'Insert',
+      \ 'R'  : 'Replace',
+      \ 'Rv' : 'V·Replace ',
+      \ 'c'  : 'Command',
+      \ 'cv' : 'Vim Ex',
+      \ 'rm' : 'More',
+      \ 'r?' : 'Confirm',
+      \ '!'  : 'Shell',
+      \ 't'  : 'Terminal'
+\}
+
+
+" Function: return current mode
+" abort -> function will abort soon as error detected
+function! ModeCurrent() abort
+    let l:modecurrent = mode()
+    let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block'))
+    let l:current_status_mode = l:modelist
+    return l:current_status_mode
+endfunction
+
+" Find out current buffer's size and output it.
+function! FileSize()
+  let bytes = getfsize(expand('%:p'))
+  if (bytes >= 1024)
+    let kbytes = bytes / 1024
+  endif
+  if (exists('kbytes') && kbytes >= 1000)
+    let mbytes = kbytes / 1000
+  endif
+
+  if bytes <= 0
+    return '0'
+  endif
+
+  if (exists('mbytes'))
+    return mbytes . 'MB'
+  elseif (exists('kbytes'))
+    return kbytes . 'KB'
+  else
+    return bytes . 'B'
+  endif
+endfunction
+
+" left side
+set statusline=
+set statusline+=\ %{ModeCurrent()}
+set statusline+=\ \|\ " Separator
+set statusline+=%f\ [%{FileSize()}] " file name
+set statusline+=\ \|\ " Separator
+set statusline+=%y " file type
+set statusline+=\ \|\ " Separator
+set statusline+=[%b][0x%B] " Char under cursor
+set statusline+=\ \|\ " Separator
+" ------------------------------
+set statusline+=%= " switching to right side
+set statusline+=\|\ " Separator
+set statusline+=L:\ %l\ of\ %L\ [%p%%] " current line and total of lines
+set statusline+=\ \|\ " Separator
+set statusline+=C:\ %c " Column
+set statusline+=\ \|\ " Separator
+set statusline+=B:\ %n " Buffer number
+set statusline+=\ \|\ " Separator
+set statusline+=%{(&fenc!=''?&fenc:&enc)} " encoding
+set statusline+=\ \|\ " Separator
+
+
 " Close all folds when opening a new buffer
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
+
 " }}}
 
 " ============================================================================
@@ -254,15 +340,19 @@ nnoremap tl  :tablast<CR>
 " PLUGINS
 
 " Files (similar to :FZF)
+
 " nmap <leader>e :Files<CR>
-nmap <leader>f :FZF<CR>
-" open buffers
-nmap <leader>b :Buffers<CR>
+nnoremap <leader>f :FZF<CR>
+" list open buffers
+nnoremap <leader>b :Buffers<CR>
 " commands finder mapping (all commands)
-nmap <leader>c :Commands<CR>
+nnoremap <leader>c :Commands<CR>
 " general code finder in current file mapping (find line. nice)
-nmap <leader>l :BLines<CR>
+nnoremap <leader>l :BLines<CR>
 " Lines in loaded buffers
-nmap <leader>L :Lines<CR>
+nnoremap <leader>L :Lines<CR>
+
+" File System Explorer (in horizontal split)
+nnoremap <leader>. :Sexplore<cr>
 
 " }}}
