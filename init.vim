@@ -41,7 +41,7 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'Townk/vim-autoclose'
 
 " Completion from other opened files
-Plug 'Shougo/context_filetype.vim'
+" Plug 'Shougo/context_filetype.vim'
 
 Plug 'tpope/vim-repeat'
 
@@ -89,11 +89,25 @@ let g:netrw_list_hide= '.*\.swp$, .*\.pyc'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+
+" Snippet ------------------------------
+Plug 'Valloric/YouCompleteMe' " fuzzy-code-completion engine
+Plug 'SirVer/ultisnips' " snippet manager for Vim
+Plug 'honza/vim-snippets' " snippets files for various programming languages
+
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 " Tell vim-plug we finished declaring plugins, so it can load them
@@ -326,7 +340,6 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-
 
 " TABBING
 nnoremap tt :tabnew<space>
