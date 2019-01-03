@@ -41,7 +41,7 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'Townk/vim-autoclose'
 
 " Completion from other opened files
-" Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/context_filetype.vim'
 
 Plug 'tpope/vim-repeat'
 
