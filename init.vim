@@ -92,18 +92,25 @@ let g:fzf_action = {
 
 " Snippet ------------------------------
 Plug 'Valloric/YouCompleteMe' " fuzzy-code-completion engine
-Plug 'SirVer/ultisnips' " snippet manager for Vim
-Plug 'honza/vim-snippets' " snippets files for various programming languages
 
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_max_num_candidates = 10
+
+Plug 'SirVer/ultisnips' " snippet manager for Vim
+Plug 'honza/vim-snippets' " snippets files for various programming languages
+
+set runtimepath+=~/.config/nvim/snippets
+" Defines the directory where private snippet definition files are placed in
+let g:UltiSnipsSnippetsDir = "~/.config/nvim/snippets/UltiSnips"
+
+let g:UltiSnipsEditSplit="vertical"
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 
 " Tell vim-plug we finished declaring plugins, so it can load them
