@@ -310,6 +310,7 @@ noremap , @@ "for the last macro
 
 " use jk to quickly escape to normal mode while typing
 inoremap jk <ESC>
+inoremap jj <ESC>
 
 " Don't use arrow keys
 noremap <up> <nop>
