@@ -192,9 +192,6 @@ set wildmenu            " visual autocomplete for command menu
 " set wildmode=list:longest " NO, will prevent from autocompletion
 set wildignore+=*.a,*.o,*.pyc,*~,*.swp,*.tmp
 
-" Remove whitespaces on save
-autocmd BufWritePre * :%s/\s\+$//e
-
 " Autosave when switching buffers
 set autowrite
 
@@ -211,10 +208,14 @@ set lazyredraw          " redraw only when we need to.
 set splitbelow
 set splitright
 
+" Remove whitespaces on save
+autocmd BufWritePre * :%s/\s\+$//e
+
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=lightgreen
 set colorcolumn=100
+
 " }}}
 
 
@@ -239,7 +240,6 @@ let g:currentmode={
       \ '!'  : 'Shell',
       \ 't'  : 'Terminal'
 \}
-
 
 " Function: return current mode
 " abort -> function will abort soon as error detected
@@ -304,11 +304,16 @@ autocmd BufRead * normal zM
 
 " ============================================================================
 " MAPPING {{{
+
 noremap ; :
 
-noremap , @@ "for the last macro
+"for the last macro
+noremap , @@
 
-" use jk to quickly escape to normal mode while typing
+" Redo with U instead of Ctrl+R
+noremap U <C-R>
+
+" escape to normal mode while typing
 inoremap jk <ESC>
 inoremap jj <ESC>
 
@@ -328,8 +333,7 @@ inoremap " ""<ESC>i
 noremap <CR> o<Esc>k
 
 " reloads .vimrc -- making all changes active
-noremap <silent> <leader>v :source ~/.config/nvim/init.vim<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
+noremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " QUIT
 nnoremap <leader>wq :wq<CR>
@@ -339,6 +343,7 @@ nnoremap <leader>w :w<CR>
 noremap ss :split<CR>
 noremap sv :vsplit<CR>
 noremap sq :q<CR>
+
 "" navigation (split)
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -348,13 +353,14 @@ noremap <C-l> <C-w>l
 " TABBING
 nnoremap tt :tabnew<space>
 nnoremap tq :tabclose<CR>
+
 "" navigation (tab)
 nnoremap th  :tabfirst<CR>
 nnoremap tj :tabnext<CR>
 nnoremap tk  :tabprev<CR>
 nnoremap tl  :tablast<CR>
 
-" PLUGINS
+" PLUGINS bindings
 
 " Files (similar to :FZF)
 
