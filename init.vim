@@ -34,11 +34,7 @@ endif
 " so vim-plug knows we are declaring the plugins we want to use
 call plug#begin('~/.config/nvim/plugged')
 
-" Better language packs
 Plug 'sheerun/vim-polyglot'
-
-" Automatically close parenthesis, etc
-" Plug 'Townk/vim-autoclose'
 
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
@@ -46,8 +42,6 @@ Plug 'Shougo/context_filetype.vim'
 Plug 'tpope/vim-repeat'
 
 Plug 'tomtom/tcomment_vim'
-
-noremap <silent> <leader>cc :TComment<CR>
 
 Plug 'tpope/vim-surround'
 
@@ -110,8 +104,6 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-
-
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -307,8 +299,12 @@ autocmd BufRead * normal zM
 
 noremap ; :
 
+" reloads .vimrc
+noremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
 "for the last macro
 noremap , @@
+noremap , ;
 
 " Redo with U instead of Ctrl+R
 noremap U <C-R>
@@ -332,8 +328,13 @@ inoremap " ""<ESC>i
 " insert newline without entering insert mode
 noremap <CR> o<Esc>k
 
-" reloads .vimrc -- making all changes active
-noremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
+" Screen
+noremap zk zt
+noremap zj zb
+noremap zh <C-b>
+noremap zl <C-f>
+
+noremap ZZ <nop> " to avoid to exit (zz)
 
 " QUIT
 nnoremap <leader>wq :wq<CR>
@@ -362,10 +363,14 @@ nnoremap tl  :tablast<CR>
 
 " PLUGINS bindings
 
-" Files (similar to :FZF)
+" TComment
+
+noremap <silent> <leader>cc :TComment<CR>
+
+" Files (== :FZF)
 
 " nmap <leader>e :Files<CR>
-nnoremap <leader>f :FZF<CR>
+nnoremap <leader>o :FZF<CR>
 " list open buffers
 nnoremap <leader>b :Buffers<CR>
 " commands finder mapping (all commands)
