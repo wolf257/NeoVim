@@ -1,6 +1,119 @@
-snippet env3 "Environnement for py3"
+# SHEEBANG ================================================
+snippet env3 "Sheebang for py3"
 #!/usr/bin/env/ python3
 # -*- coding : utf-8 -*-
 
 $0
+endsnippet
+
+####################
+# ... #
+####################
+
+# WITH ================================================
+snippet with "Interaction with file"
+with open(${1:file}, mode='${2:expr}', encoding='${3:utf-8}') as ${4:HANDLE}:
+    $0
+    
+endsnippet    
+
+# DEF ================================================
+snippet def "function with docstrings" b
+def ${1:name}(${2:parameters}):
+	""" docstring of the function """
+    
+	${3:${VISUAL:pass}}
+    
+endsnippet
+
+# DEFMAIN ================================================
+snippet defmain "Main function"
+def main():
+    ${1:${VISUAL:pass}}
+    
+endsnippet    
+
+# PRINTf ================================================
+snippet prif "Print with f string"
+print(f"${1:message}")
+
+$0
+endsnippet    
+
+####################
+# If / Else / Elif #
+####################
+
+snippet if "if" b
+if ${1:condition}:
+	${2:${VISUAL:pass}}
+endsnippet
+
+#================================================
+snippet ife "if / else" b
+if ${1:condition}:
+	${2:${VISUAL:pass}}
+else:
+	${3:pass}
+endsnippet
+
+#================================================
+snippet ifee "if / elif / else" b
+if ${1:condition}:
+	${2:${VISUAL:pass}}
+elif ${3:condition}:
+	${4:pass}
+else:
+	${5:pass}
+endsnippet
+
+#================================================
+snippet ifmain "ifmain" b
+if __name__ == '__main__':
+    main()
+
+endsnippet
+
+
+##########################
+# Try / Except / Finally #
+##########################
+
+snippet try "Try / Except" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+endsnippet
+
+#================================================
+snippet trye "Try / Except / Else" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+else:
+	${5:pass}
+endsnippet
+
+#================================================
+snippet tryf "Try / Except / Finally" b
+try:
+	${1:${VISUAL:pass}}
+except ${2:Exception} as ${3:e}:
+	${4:raise $3}
+finally:
+	${5:pass}
+endsnippet
+
+#================================================
+snippet tryef "Try / Except / Else / Finally" b
+try:
+	${1:${VISUAL:pass}}
+except${2: ${3:Exception} as ${4:e}}:
+	${5:raise}
+else:
+	${6:pass}
+finally:
+	${7:pass}
 endsnippet

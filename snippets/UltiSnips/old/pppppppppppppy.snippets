@@ -11,21 +11,21 @@ snippet #! "Shebang header for python scripts" b
 $0
 endsnippet
 
-snippet ifmain "ifmain" b
-if __name__ == `!p snip.rv = get_quoting_style(snip)`__main__`!p snip.rv = get_quoting_style(snip)`:
-	${1:${VISUAL:main()}}
-endsnippet
+# snippet ifmain "ifmain" b
+# if __name__ == `!p snip.rv = get_quoting_style(snip)`__main__`!p snip.rv = get_quoting_style(snip)`:
+#     ${1:${VISUAL:main()}}
+# endsnippet
 
-snippet with "with" b
-with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
-	${3:${VISUAL:pass}}
-$0
-endsnippet
+# snippet with "with" b
+# with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
+#     ${3:${VISUAL:pass}}
+# $0
+# endsnippet
 
-snippet for "for loop" b
-for ${1:item} in ${2:iterable}:
-	${3:${VISUAL:pass}}
-endsnippet
+# snippet for "for loop" b
+# for ${1:item} in ${2:iterable}:
+#     ${3:${VISUAL:pass}}
+# endsnippet
 
 ##########
 # COMMON #
@@ -567,69 +567,69 @@ $1 = property(**$1(), doc=$1.__doc__)
 endsnippet
 
 
-####################
-# If / Else / Elif #
-####################
-snippet if "If" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-endsnippet
-
-snippet ife "If / Else" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-else:
-	${3:pass}
-endsnippet
-
-snippet ifee "If / Elif / Else" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-elif ${3:condition}:
-	${4:pass}
-else:
-	${5:pass}
-endsnippet
-
-
-##########################
-# Try / Except / Finally #
-##########################
-snippet try "Try / Except" b
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception} as ${3:e}:
-	${4:raise $3}
-endsnippet
-
-snippet trye "Try / Except / Else" b
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception} as ${3:e}:
-	${4:raise $3}
-else:
-	${5:pass}
-endsnippet
-
-snippet tryf "Try / Except / Finally" b
-try:
-	${1:${VISUAL:pass}}
-except ${2:Exception} as ${3:e}:
-	${4:raise $3}
-finally:
-	${5:pass}
-endsnippet
-
-snippet tryef "Try / Except / Else / Finally" b
-try:
-	${1:${VISUAL:pass}}
-except${2: ${3:Exception} as ${4:e}}:
-	${5:raise}
-else:
-	${6:pass}
-finally:
-	${7:pass}
-endsnippet
+# ####################
+# # If / Else / Elif #
+# ####################
+# snippet if "If" b
+# if ${1:condition}:
+#     ${2:${VISUAL:pass}}
+# endsnippet
+#
+# snippet ife "If / Else" b
+# if ${1:condition}:
+#     ${2:${VISUAL:pass}}
+# else:
+#     ${3:pass}
+# endsnippet
+#
+# snippet ifee "If / Elif / Else" b
+# if ${1:condition}:
+#     ${2:${VISUAL:pass}}
+# elif ${3:condition}:
+#     ${4:pass}
+# else:
+#     ${5:pass}
+# endsnippet
+#
+#
+# ##########################
+# # Try / Except / Finally #
+# ##########################
+# snippet try "Try / Except" b
+# try:
+#     ${1:${VISUAL:pass}}
+# except ${2:Exception} as ${3:e}:
+#     ${4:raise $3}
+# endsnippet
+#
+# snippet trye "Try / Except / Else" b
+# try:
+#     ${1:${VISUAL:pass}}
+# except ${2:Exception} as ${3:e}:
+#     ${4:raise $3}
+# else:
+#     ${5:pass}
+# endsnippet
+#
+# snippet tryf "Try / Except / Finally" b
+# try:
+#     ${1:${VISUAL:pass}}
+# except ${2:Exception} as ${3:e}:
+#     ${4:raise $3}
+# finally:
+#     ${5:pass}
+# endsnippet
+#
+# snippet tryef "Try / Except / Else / Finally" b
+# try:
+#     ${1:${VISUAL:pass}}
+# except${2: ${3:Exception} as ${4:e}}:
+#     ${5:raise}
+# else:
+#     ${6:pass}
+# finally:
+#     ${7:pass}
+# endsnippet
 
 
 ######################

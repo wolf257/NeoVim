@@ -128,7 +128,7 @@ set noshowmode
 
 "GENERAL
 set mouse=a "Activer la souris
-" set cursorline  "highlight current line
+"set cursorline  "highlight current line
 
 " UTF encoding
 set encoding=utf-8

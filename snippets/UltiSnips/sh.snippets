@@ -3,3 +3,87 @@ snippet env "Environnement for bash"
 
 $0
 endsnippet
+
+
+# ARRAY ====================================
+snippet array "Create an array"
+declare -a ${1:nameOfArray}=(${2:items});
+allVarIn$1=${$1[*]};
+
+$0
+endsnippet
+
+# FOR ====================================
+snippet fore "For element in array"
+for ${1:element} in $${2:nameArray}; do
+    ${3:todo};
+done
+
+$0
+endsnippet
+
+# WHILE ====================================
+snippet while "While"
+while [ ${1:condition} ]; do
+    ${2:todo}
+done
+
+$0
+endsnippet
+
+# CASE ====================================
+snippet case "Switch case"
+case $${1:pass} in
+    ${2:pattern}) ${3:todo};
+    ${4:pattern}) ${5:todo};
+    *) ${6:todo};
+esac
+
+$0
+endsnippet
+
+# IF ====================================
+snippet if "if"
+if [${1:test}]; then
+    ${2:todo}
+fi
+
+$0
+endsnippet
+
+# IF/ELSE ====================================
+snippet ife "if ... else"
+if [${1:test}]; then
+    ${2:todo}
+else
+    ${3:todo}
+fi
+
+$0
+endsnippet
+
+# IF/ELIF/ELSE ====================================
+snippet ifee "if ... elif ... else"
+if [${1:test}]; then
+    ${3:todo}
+elif [${2:test}]
+    ${4:todo}
+else
+    ${5:todo}
+fi
+
+$0
+endsnippet
+
+
+# exist_or_create ====================================
+snippet exist_or_create "Check if directory or create"
+if [ -d ${1:path_folder} ]; then
+    echo -e "\t$1 exists already."
+else
+    mkdir $1
+    echo -e "\t$1 has been created."
+fi
+
+$0
+endsnippet
